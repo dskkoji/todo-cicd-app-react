@@ -81,19 +81,17 @@ jobs:
         run: npm install
 
       - name: Prepare Google Application Credentials
-        run: |
-          echo ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }} | base64 --decode > $HOME/private-key.json
+        run: echo ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS  }} | base64 --decode > $HOME/private-key.json
 
       - name: Deploy Firebase
-        run: |
-          export GOOGLE_APPLICATION_CREDENTIALS="$HOME/private-key.json"
-          firebase experimentals:enable webframeworks
+        run: | 
+          export GOOGLE_APPICATION_CREDENTIALS="$HOME/private-key.json"
+          firebase experiments: enable webframeworks
           firebase deploy --only hosting
 
       - name: Remove private key
         if: always()
         run: rm $HOME/private-key.json
-
 
 
 

@@ -83,11 +83,11 @@ jobs:
       - name: Prepare Google Application Credentials
         run: |
           echo ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
-          base64 --decode > ./private-key.json
+          base64 --decode > $HOME/private-key.json
 
       - name: Deploy Firebase
         run: |
-          export GOOGLE_APPLICATION_CREDENTIALS="./private-key.json"
+          export GOOGLE_APPLICATION_CREDENTIALS="$HOME/private-key.json"
           firebase experiments:enable webframeworks
           firebase deploy --only hosting
 
